@@ -1,4 +1,4 @@
-package com.backbase.boardmembers;
+package com.backbase.boardmembers.models;
 
 import java.util.List;
 
@@ -7,11 +7,11 @@ import java.util.List;
  */
 public class MembersResponseDTO {
 
-    List<MemberDetails> CXP;
+    public List<MemberDetails> CXP;
 
-    List<MemberDetails> Mobile;
+    public List<MemberDetails> Mobile;
 
-    List<MemberDetails> Launchpad;
+    public List<MemberDetails> Launchpad;
 
     public List<MemberDetails> getCXP() {
         return CXP;
