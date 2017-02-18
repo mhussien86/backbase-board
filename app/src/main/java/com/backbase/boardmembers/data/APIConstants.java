@@ -6,4 +6,5 @@ package com.backbase.boardmembers.data;
 public class APIConstants {
 
     public static String BASE_SERVICE_URL = "http://nielsmouthaan.nl/backbase/";
+    public static String IMAGE_SERVICE_PATH = "http://nielsmouthaan.nl/backbase/photos/" ;
 }
