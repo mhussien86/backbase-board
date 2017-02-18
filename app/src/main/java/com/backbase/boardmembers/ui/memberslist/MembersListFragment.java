@@ -4,18 +4,18 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.backbase.boardmembers.R;
-import com.backbase.boardmembers.interactors.BoardMembersInteractor;
-import com.backbase.boardmembers.interactors.BoardMembersInteractorImpl;
 import com.backbase.boardmembers.models.MembersResponseDTO;
+import com.backbase.boardmembers.ui.AppConstants;
+import com.backbase.boardmembers.ui.memberdetails.MemberDetailsFragment;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -76,7 +76,7 @@ public class MembersListFragment extends Fragment implements MembersListView{
     @Override
     public void showError(String errorMessage) {
 
-        Snackbar.make(getView(),errorMessage,Snackbar.LENGTH_INDEFINITE).setAction("Retry", new View.OnClickListener() {
+        Snackbar.make(getView(),getString(R.string.something_wrong),Snackbar.LENGTH_INDEFINITE).setAction(R.string.retry_text, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(membersListPresenter!=null)
@@ -91,7 +91,11 @@ public class MembersListFragment extends Fragment implements MembersListView{
         membersAdapter = new MembersAdapter(getContext(),membersList, new MembersAdapter.OnMemberClickListener() {
             @Override
             public void onMemberClick(MembersResponseDTO.MemberDetails memberDetails) {
-
+                MemberDetailsFragment bottomSheetDialogFragment = new MemberDetailsFragment();
+                Bundle args = new Bundle();
+                args.putParcelable(AppConstants.MEMBER_DETAILS, Parcels.wrap(memberDetails));
+                bottomSheetDialogFragment.setArguments(args);
+                bottomSheetDialogFragment.show(getActivity().getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
             }
         });
         membersRecycleView.setAdapter(membersAdapter);
@@ -103,4 +107,5 @@ public class MembersListFragment extends Fragment implements MembersListView{
         membersListPresenter.onDestroy();
         binder.unbind(this);
     }
+
 }

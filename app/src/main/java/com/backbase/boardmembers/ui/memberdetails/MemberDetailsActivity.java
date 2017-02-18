@@ -1,15 +1,15 @@
-package com.backbase.boardmembers.ui.memberslist;
+package com.backbase.boardmembers.ui.memberdetails;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.backbase.boardmembers.R;
+import com.backbase.boardmembers.ui.memberslist.MembersListFragment;
 
 /**
- * Created by mohamed on 17/02/17.
+ * Created by mohamed on 18/02/17.
  */
-public class MembersListActivity extends AppCompatActivity {
-
+public class MemberDetailsActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,5 @@ public class MembersListActivity extends AppCompatActivity {
                     .replace(R.id.container, new MembersListFragment())
                     .commit();
         }
-
     }
-
 }

@@ -1,10 +1,13 @@
 package com.backbase.boardmembers.models;
 
+import org.parceler.Parcel;
+
 import java.util.List;
 
 /**
  * Created by mohamed on 17/02/17.
  */
+@Parcel
 public class MembersResponseDTO {
 
     public List<MemberDetails> CXP;
@@ -41,12 +44,15 @@ public class MembersResponseDTO {
     /**
      * Created by mohamed on 17/02/17.
      */
+    @Parcel
     public static class MemberDetails {
 
+        public MemberDetails(){}
 
         public MemberDetails(String header){
             this.header = header ;
         }
+
         public String name;
 
         public String surname;
@@ -106,7 +112,6 @@ public class MembersResponseDTO {
         public void setSurname(String surname) {
             this.surname = surname;
         }
-
 
 
     }

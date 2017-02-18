@@ -1,5 +1,9 @@
 package com.backbase.boardmembers.data.errorhandling;
 
+import android.content.Context;
+
+import com.backbase.boardmembers.R;
+
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 
@@ -16,6 +20,7 @@ public class RetrofitException extends RuntimeException {
         String message = response.code() + " " + response.message();
         return new RetrofitException(message, url, response, Kind.HTTP, null, retrofit);
     }
+
 
     public static RetrofitException networkError(IOException exception) {
         return new RetrofitException(exception.getMessage(), null, null, Kind.NETWORK, exception, null);
