@@ -1,5 +1,6 @@
 package com.backbase.boardmembers.data;
 
+import com.backbase.boardmembers.data.errorhandling.RxErrorHandlingCallAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -10,7 +11,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -28,7 +28,9 @@ public class ServiceGenerator {
         Gson gson = new GsonBuilder() .setLenient() .create();
         builder = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+
+                .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
+//                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson));
     }
 

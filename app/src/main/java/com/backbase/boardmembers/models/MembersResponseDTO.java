@@ -44,6 +44,9 @@ public class MembersResponseDTO {
     public static class MemberDetails {
 
 
+        public MemberDetails(String header){
+            this.header = header ;
+        }
         public String name;
 
         public String surname;
@@ -53,6 +56,16 @@ public class MembersResponseDTO {
         public String photo;
 
         public String role;
+
+        public String header ;
+
+        public String getHeader() {
+            return header;
+        }
+
+        public void setHeader(String header) {
+            this.header = header;
+        }
 
         public String getEmail() {
             return email;
@@ -93,6 +106,8 @@ public class MembersResponseDTO {
         public void setSurname(String surname) {
             this.surname = surname;
         }
+
+
 
     }
 }

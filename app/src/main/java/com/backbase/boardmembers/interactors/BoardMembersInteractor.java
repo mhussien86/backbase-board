@@ -2,6 +2,8 @@ package com.backbase.boardmembers.interactors;
 
 import com.backbase.boardmembers.models.MembersResponseDTO;
 
+import java.util.List;
+
 /**
  * Created by mohamed on 17/02/17.
  */
@@ -11,7 +13,7 @@ public interface BoardMembersInteractor {
 
     interface OnFetchAllBoardMembers{
 
-        void onSuccessFetchingAllBoardMembers(MembersResponseDTO membersResponseDTO);
+        void onSuccessFetchingAllBoardMembers(List<MembersResponseDTO.MemberDetails> membersResponseDTO);
 
         void onErrorFetchingAllBoardMembers(String errorMessage);
     }

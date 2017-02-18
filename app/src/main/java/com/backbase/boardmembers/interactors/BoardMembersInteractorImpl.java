@@ -2,7 +2,11 @@ package com.backbase.boardmembers.interactors;
 
 import com.backbase.boardmembers.data.ServiceGenerator;
 import com.backbase.boardmembers.data.api.MembersAPI;
+import com.backbase.boardmembers.data.errorhandling.RetrofitException;
 import com.backbase.boardmembers.models.MembersResponseDTO;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -39,7 +43,14 @@ public class BoardMembersInteractorImpl implements BoardMembersInteractor {
                     @Override
                     public void onNext(MembersResponseDTO membersResponseDTO) {
 
-                        onFetchAllBoardMembers.onSuccessFetchingAllBoardMembers(membersResponseDTO);
+                        List<MembersResponseDTO.MemberDetails> membersList = new ArrayList<MembersResponseDTO.MemberDetails>();
+                        membersList.add(new MembersResponseDTO.MemberDetails("CXP"));
+                        membersList.addAll(membersResponseDTO.getCXP());
+                        membersList.add(new MembersResponseDTO.MemberDetails("Launchpad"));
+                        membersList.addAll(membersResponseDTO.getLaunchpad());
+                        membersList.add(new MembersResponseDTO.MemberDetails("Mobile"));
+                        membersList.addAll(membersResponseDTO.getMobile());
+                        onFetchAllBoardMembers.onSuccessFetchingAllBoardMembers(membersList);
                     }
 
                     @Override
@@ -49,9 +60,12 @@ public class BoardMembersInteractorImpl implements BoardMembersInteractor {
                     }
 
                     @Override
-                    public void onError(final Throwable error) {
+                    public void onError(final Throwable exception) {
 
-                        onFetchAllBoardMembers.onErrorFetchingAllBoardMembers(""+error.getLocalizedMessage());
+                        RetrofitException  error = (RetrofitException) exception;
+                        if(error.getKind() == RetrofitException.Kind.NETWORK){
+                            onFetchAllBoardMembers.onErrorFetchingAllBoardMembers(""+ error.getLocalizedMessage());
+                        }
 
                     }
                 }));
