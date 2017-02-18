@@ -12,7 +12,6 @@ import retrofit2.Retrofit;
  * Created by mohamed on 18/02/17.
  */
 public class RetrofitException extends RuntimeException {
-
     public static RetrofitException httpError(String url, Response response, Retrofit retrofit) {
         String message = response.code() + " " + response.message();
         return new RetrofitException(message, url, response, Kind.HTTP, null, retrofit);

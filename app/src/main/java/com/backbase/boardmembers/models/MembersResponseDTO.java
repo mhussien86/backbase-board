@@ -57,7 +57,7 @@ public class MembersResponseDTO {
 
         public String role;
 
-        public String header ;
+        public String header= "" ;
 
         public String getHeader() {
             return header;

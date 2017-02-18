@@ -23,21 +23,18 @@ public class ServiceGenerator {
     OkHttpClient.Builder httpClient;
     Retrofit.Builder builder;
 
-    public ServiceGenerator(){
+    public ServiceGenerator() {
         httpClient = new OkHttpClient.Builder();
-        Gson gson = new GsonBuilder() .setLenient() .create();
+        Gson gson = new GsonBuilder().setLenient().create();
         builder = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
-
                 .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
-//                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson));
     }
 
 
-
     // method to create any retrofit service
-    public  <T> T createService(Class<T> serviceClass) {
+    public <T> T createService(Class<T> serviceClass) {
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         // set your desired log level
@@ -52,10 +49,7 @@ public class ServiceGenerator {
                 // Request customization: add request headers
                 Request.Builder requestBuilder = original.newBuilder().method(original.method(), original.body());
                 requestBuilder.addHeader("Content-Type", "application/json; text/html; charset=UTF-8");
-
                 Request request = requestBuilder.build();
-
-
                 return chain.proceed(request);
             }
         });

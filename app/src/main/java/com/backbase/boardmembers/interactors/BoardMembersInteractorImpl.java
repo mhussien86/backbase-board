@@ -62,9 +62,14 @@ public class BoardMembersInteractorImpl implements BoardMembersInteractor {
                     @Override
                     public void onError(final Throwable exception) {
 
-                        RetrofitException  error = (RetrofitException) exception;
-                        if(error.getKind() == RetrofitException.Kind.NETWORK){
-                            onFetchAllBoardMembers.onErrorFetchingAllBoardMembers(""+ error.getLocalizedMessage());
+                        if(exception instanceof RetrofitException) {
+                            RetrofitException error = (RetrofitException) exception;
+                            if (error.getKind() == RetrofitException.Kind.NETWORK) {
+                                onFetchAllBoardMembers.onErrorFetchingAllBoardMembers("" + error.getMessage());
+                            }
+                        }else{
+                            onFetchAllBoardMembers.onErrorFetchingAllBoardMembers("" + exception.getMessage());
+
                         }
 
                     }
