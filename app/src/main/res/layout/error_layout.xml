@@ -4,15 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center">
-    <ImageView
-        android:id="@+id/cant_connect_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:contentDescription="@string/cant_connect"
-        android:src="@drawable/cant_connect" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/cant_connect" />
+        android:text="@string/cant_connect"
+        android:drawableTop="@drawable/cant_connect"/>
 </LinearLayout>
