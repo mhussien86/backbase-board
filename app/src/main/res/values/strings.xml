@@ -5,4 +5,5 @@
     <string name="department_title">Department</string>
     <string name="role_title">Role</string>
     <string name="button_send_mail">E-mail</string>
+    <string name="Welcome_message">Backbase Board</string>
 </resources>
