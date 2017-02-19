@@ -1,6 +1,4 @@
-# README #
-
-# backbase-board
+# backbase-board #
 
 A Backbase board members App using MVP-Clean architecture
 
