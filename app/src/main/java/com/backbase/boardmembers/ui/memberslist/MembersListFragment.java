@@ -28,7 +28,10 @@ import butterknife.ButterKnife;
 public class MembersListFragment extends Fragment implements MembersListView{
 
     @Bind(R.id.layout_loading)
-    View mLoadingLayout ;
+    View loadingLayout;
+
+    @Bind(R.id.error_layout)
+    View errorLayout ;
 
     View rootView ;
 
@@ -64,23 +67,26 @@ public class MembersListFragment extends Fragment implements MembersListView{
     @Override
     public void showLoading() {
 
-        mLoadingLayout.setVisibility(View.VISIBLE);
+        loadingLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
 
-        mLoadingLayout.setVisibility(View.GONE);
+        loadingLayout.setVisibility(View.GONE);
     }
 
     @Override
     public void showError(String errorMessage) {
 
+        errorLayout.setVisibility(View.VISIBLE);
         Snackbar.make(getView(),getString(R.string.something_wrong),Snackbar.LENGTH_INDEFINITE).setAction(R.string.retry_text, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(membersListPresenter!=null)
-                membersListPresenter.getBoardMembersList();
+                if(membersListPresenter!=null) {
+                    errorLayout.setVisibility(View.GONE);
+                    membersListPresenter.getBoardMembersList();
+                }
             }
         }).show();
     }
@@ -88,6 +94,9 @@ public class MembersListFragment extends Fragment implements MembersListView{
     @Override
     public void setBoardMembersList(List<MembersResponseDTO.MemberDetails> membersList) {
 
+        if(errorLayout!=null && errorLayout.getVisibility()==View.VISIBLE){
+            errorLayout.setVisibility(View.GONE);
+        }
         membersAdapter = new MembersAdapter(getContext(),membersList, new MembersAdapter.OnMemberClickListener() {
             @Override
             public void onMemberClick(MembersResponseDTO.MemberDetails memberDetails) {

@@ -1,6 +1,5 @@
 package com.backbase.boardmembers.interactors;
 
-import com.backbase.boardmembers.R;
 import com.backbase.boardmembers.data.ServiceGenerator;
 import com.backbase.boardmembers.data.api.MembersAPI;
 import com.backbase.boardmembers.data.errorhandling.RetrofitException;
@@ -72,6 +71,18 @@ public class BoardMembersInteractorImpl implements BoardMembersInteractor {
 
     }
 
+    public List<MembersResponseDTO.MemberDetails> getMembersTest(){
+
+        List<MembersResponseDTO.MemberDetails> membersList = new ArrayList<MembersResponseDTO.MemberDetails>();
+
+        for(int i = 0 ; i < 5 ; i++){
+
+            membersList.add(new MembersResponseDTO.MemberDetails());
+        }
+
+
+        return membersList;
+    }
     public List<MembersResponseDTO.MemberDetails> handleReturnedData(MembersResponseDTO membersResponseDTO){
 
         List<MembersResponseDTO.MemberDetails> membersList = new ArrayList<MembersResponseDTO.MemberDetails>();

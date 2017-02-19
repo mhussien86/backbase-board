@@ -17,6 +17,6 @@ public interface BoardMembersInteractor {
 
         void onErrorFetchingAllBoardMembers(String errorMessage);
     }
-
+    List<MembersResponseDTO.MemberDetails> getMembersTest();
     void unSubscribe();
 }
