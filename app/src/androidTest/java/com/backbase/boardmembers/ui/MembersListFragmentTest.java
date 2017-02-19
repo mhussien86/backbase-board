@@ -1,5 +1,6 @@
 package com.backbase.boardmembers.ui;
 
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import com.backbase.boardmembers.R;
 import com.backbase.boardmembers.ui.memberslist.MembersListActivity;
@@ -40,7 +41,7 @@ public class MembersListFragmentTest {
     @Test
     public void testBottomSheetDisplayedIdTest() throws Exception{
 
-
+        onView(withId(R.id.members_recycle_view)).perform(RecyclerViewActions.actionOnItemAtPosition(2, click()));
 
 
     }
