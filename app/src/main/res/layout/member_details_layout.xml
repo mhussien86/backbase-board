@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/main_title"
-            android:id="@+id/member_name"
+            android:id="@+id/member_name_details"
             android:textColor="@color/colorPrimaryDark"
             android:gravity="center_horizontal"
             android:textStyle="bold"/>

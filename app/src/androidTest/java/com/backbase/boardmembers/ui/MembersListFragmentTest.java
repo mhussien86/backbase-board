@@ -10,8 +10,11 @@ import org.junit.Test;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.hasSibling;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.allOf;
 
 /**
  * Created by mohamed on 19/02/17.
@@ -23,7 +26,6 @@ public class MembersListFragmentTest {
     public ActivityTestRule<MembersListActivity> mActivityRule =
             new ActivityTestRule<>(MembersListActivity.class);
 
-
     @Before
     public void setActivity() {
         membersListActivity = mActivityRule.getActivity();
@@ -31,18 +33,8 @@ public class MembersListFragmentTest {
 
     @Test
     public void testBottomSheetDisplayedTest() throws Exception{
-        onView(withId(R.id.container))            // withId(R.id.my_view) is a ViewMatcher
-                .perform(click());               // click() is a ViewAction
-        onView(withId(R.id.container_relative))
-                .check(matches(isDisplayed()));
+        onView(withId(R.id.members_recycle_view)).perform(RecyclerViewActions.actionOnItemAtPosition(5, click()));
+        onView(withId(R.id.container_relative)).check(matches(isDisplayed()));
     }
 
-
-    @Test
-    public void testBottomSheetDisplayedIdTest() throws Exception{
-
-        onView(withId(R.id.members_recycle_view)).perform(RecyclerViewActions.actionOnItemAtPosition(2, click()));
-
-
-    }
 }

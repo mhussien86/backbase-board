@@ -45,6 +45,7 @@ public class BoardMembersInteractorImpl implements BoardMembersInteractor {
                     public void onNext(MembersResponseDTO membersResponseDTO) {
 
                         onFetchAllBoardMembers.onSuccessFetchingAllBoardMembers(handleReturnedData(membersResponseDTO));
+
                     }
 
                     @Override
@@ -86,17 +87,23 @@ public class BoardMembersInteractorImpl implements BoardMembersInteractor {
     public List<MembersResponseDTO.MemberDetails> handleReturnedData(MembersResponseDTO membersResponseDTO){
 
         List<MembersResponseDTO.MemberDetails> membersList = new ArrayList<MembersResponseDTO.MemberDetails>();
-        membersList.add(new MembersResponseDTO.MemberDetails(AppConstants.CXP_TEAM));
-        for(MembersResponseDTO.MemberDetails memberDetails : membersResponseDTO.getCXP()){
-            memberDetails.setDepartment(AppConstants.CXP_TEAM);
+        if(membersResponseDTO.getLaunchpad().size()>0){
+            membersList.add(new MembersResponseDTO.MemberDetails(AppConstants.LAUNCHPAD_TEAM));
         }
-        membersList.addAll(membersResponseDTO.getCXP());
-        membersList.add(new MembersResponseDTO.MemberDetails(AppConstants.LAUNCHPAD_TEAM));
         for(MembersResponseDTO.MemberDetails memberDetails : membersResponseDTO.getLaunchpad()){
             memberDetails.setDepartment(AppConstants.LAUNCHPAD_TEAM);
         }
         membersList.addAll(membersResponseDTO.getLaunchpad());
-        membersList.add(new MembersResponseDTO.MemberDetails(AppConstants.MOBILE_TEAM));
+        if(membersResponseDTO.getCXP().size()>0) {
+            membersList.add(new MembersResponseDTO.MemberDetails(AppConstants.CXP_TEAM));
+        }
+        for(MembersResponseDTO.MemberDetails memberDetails : membersResponseDTO.getCXP()){
+            memberDetails.setDepartment(AppConstants.CXP_TEAM);
+        }
+        membersList.addAll(membersResponseDTO.getCXP());
+        if(membersResponseDTO.getMobile().size()>0){
+            membersList.add(new MembersResponseDTO.MemberDetails(AppConstants.MOBILE_TEAM));
+        }
         for(MembersResponseDTO.MemberDetails memberDetails : membersResponseDTO.getMobile()){
             memberDetails.setDepartment(AppConstants.MOBILE_TEAM);
         }
