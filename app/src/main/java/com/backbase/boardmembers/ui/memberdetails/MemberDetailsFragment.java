@@ -51,7 +51,7 @@ public class MemberDetailsFragment extends BottomSheetDialogFragment {
         });
 
         TextView memberName = (TextView) contentView.findViewById(R.id.member_name);
-        memberName.setText(memberDetails.getName() + " " + memberDetails.getSurname());
+        memberName.setText(getString(R.string.member_full_name, memberDetails.getName(), memberDetails.getSurname()));
 
         Button sendMailButton = (Button) contentView.findViewById(R.id.button_send);
         sendMailButton.setOnClickListener(new View.OnClickListener() {

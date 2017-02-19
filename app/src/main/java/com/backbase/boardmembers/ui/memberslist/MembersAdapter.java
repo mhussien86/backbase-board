@@ -62,7 +62,7 @@ public class MembersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             headerViewHolder.teamTitle.setText(memberDetails.getHeader());
         } else if (holder instanceof MemberViewHolder) {
             MemberViewHolder memberViewHolder = (MemberViewHolder) holder;
-            memberViewHolder.memberName.setText(memberDetails.getName()+" "+memberDetails.getSurname());
+            memberViewHolder.memberName.setText(context.getString(R.string.member_full_name, memberDetails.getName(), memberDetails.getSurname()));
             Glide.with(context).load(APIConstants.IMAGE_SERVICE_PATH + memberDetails.getPhoto()).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.avatar).centerCrop().into(memberViewHolder.memberPhoto);
             memberViewHolder.bind(memberDetails, onMemberClickListener);
         }

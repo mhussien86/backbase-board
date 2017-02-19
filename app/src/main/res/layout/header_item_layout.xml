@@ -9,7 +9,5 @@
         android:textSize="14sp"
         android:textColor="@android:color/background_dark"
         android:id="@+id/pageTitle"
-        android:layout_centerVertical="true"
-        android:padding="10dp"
-        android:text="hello"/>
+        android:padding="10dp"/>
 </LinearLayout>
