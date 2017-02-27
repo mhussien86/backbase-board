@@ -74,4 +74,5 @@ dependencies {
     apt 'org.parceler:parceler:1.0.4'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.github.silvestrpredko:dot-progress-bar:1.1'
+    compile 'com.jakewharton.timber:timber:4.5.1'
 }

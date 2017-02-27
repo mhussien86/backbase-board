@@ -3,6 +3,7 @@ package com.backbase.boardmembers.interactors;
 import com.backbase.boardmembers.data.ServiceGenerator;
 import com.backbase.boardmembers.data.api.MembersAPI;
 import com.backbase.boardmembers.data.errorhandling.RetrofitException;
+import com.backbase.boardmembers.models.MemberDetails;
 import com.backbase.boardmembers.models.MembersResponseDTO;
 import com.backbase.boardmembers.ui.AppConstants;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
@@ -31,26 +33,52 @@ public class BoardMembersInteractorImpl implements BoardMembersInteractor {
     }
 
 
+    public Observable<List<MemberDetails>> createObservable() {
+
+
+        return membersAPI.fetchAllMembers().map(new Func1<MembersResponseDTO, List<MemberDetails>>() {
+
+            @Override
+            public List<MemberDetails> call(MembersResponseDTO membersResponseDTO) {
+                List<MemberDetails> membersList = new ArrayList<>();
+                if(membersResponseDTO.getLaunchpad().size()>0){
+                    membersList.add(new MemberDetails(AppConstants.LAUNCHPAD_TEAM));
+                }
+                for(MemberDetails memberDetails : membersResponseDTO.getLaunchpad()){
+                    memberDetails.setDepartment(AppConstants.LAUNCHPAD_TEAM);
+                }
+                membersList.addAll(membersResponseDTO.getLaunchpad());
+                if(membersResponseDTO.getCXP().size()>0) {
+                    membersList.add(new MemberDetails(AppConstants.CXP_TEAM));
+                }
+                for(MemberDetails memberDetails : membersResponseDTO.getCXP()){
+                    memberDetails.setDepartment(AppConstants.CXP_TEAM);
+                }
+                membersList.addAll(membersResponseDTO.getCXP());
+                if(membersResponseDTO.getMobile().size()>0){
+                    membersList.add(new MemberDetails(AppConstants.MOBILE_TEAM));
+                }
+                for(MemberDetails memberDetails : membersResponseDTO.getMobile()){
+                    memberDetails.setDepartment(AppConstants.MOBILE_TEAM);
+                }
+                membersList.addAll(membersResponseDTO.getMobile());
+
+                return membersList;
+            }
+        });
+
+    }
+
+
     @Override
     public void getAllBoardMembers(final OnFetchAllBoardMembers onFetchAllBoardMembers) {
 
-
-        Observable<MembersResponseDTO> observable = membersAPI.fetchAllMembers();
-
-        mCompositeSubscription.add(observable
-                .subscribeOn(Schedulers.newThread())
+        mCompositeSubscription.add(createObservable()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<MembersResponseDTO>() {
-                    @Override
-                    public void onNext(MembersResponseDTO membersResponseDTO) {
-
-                        onFetchAllBoardMembers.onSuccessFetchingAllBoardMembers(handleReturnedData(membersResponseDTO));
-
-                    }
-
+                .subscribe(new Subscriber<List<MemberDetails>>() {
                     @Override
                     public void onCompleted() {
-
 
                     }
 
@@ -66,48 +94,26 @@ public class BoardMembersInteractorImpl implements BoardMembersInteractor {
                             onFetchAllBoardMembers.onErrorFetchingAllBoardMembers("" + exception.getMessage());
 
                         }
+                    }
 
+                    @Override
+                    public void onNext(List<MemberDetails> memberDetailses) {
+
+                        onFetchAllBoardMembers.onSuccessFetchingAllBoardMembers(memberDetailses);
                     }
                 }));
-
     }
 
-    public List<MembersResponseDTO.MemberDetails> getMembersTest(){
 
-        List<MembersResponseDTO.MemberDetails> membersList = new ArrayList<MembersResponseDTO.MemberDetails>();
+    public List<MemberDetails> getMembersTest(){
+
+        List<MemberDetails> membersList = new ArrayList<>();
 
         for(int i = 0 ; i < 5 ; i++){
 
-            membersList.add(new MembersResponseDTO.MemberDetails());
+            membersList.add(new MemberDetails());
         }
 
-
-        return membersList;
-    }
-    public List<MembersResponseDTO.MemberDetails> handleReturnedData(MembersResponseDTO membersResponseDTO){
-
-        List<MembersResponseDTO.MemberDetails> membersList = new ArrayList<MembersResponseDTO.MemberDetails>();
-        if(membersResponseDTO.getLaunchpad().size()>0){
-            membersList.add(new MembersResponseDTO.MemberDetails(AppConstants.LAUNCHPAD_TEAM));
-        }
-        for(MembersResponseDTO.MemberDetails memberDetails : membersResponseDTO.getLaunchpad()){
-            memberDetails.setDepartment(AppConstants.LAUNCHPAD_TEAM);
-        }
-        membersList.addAll(membersResponseDTO.getLaunchpad());
-        if(membersResponseDTO.getCXP().size()>0) {
-            membersList.add(new MembersResponseDTO.MemberDetails(AppConstants.CXP_TEAM));
-        }
-        for(MembersResponseDTO.MemberDetails memberDetails : membersResponseDTO.getCXP()){
-            memberDetails.setDepartment(AppConstants.CXP_TEAM);
-        }
-        membersList.addAll(membersResponseDTO.getCXP());
-        if(membersResponseDTO.getMobile().size()>0){
-            membersList.add(new MembersResponseDTO.MemberDetails(AppConstants.MOBILE_TEAM));
-        }
-        for(MembersResponseDTO.MemberDetails memberDetails : membersResponseDTO.getMobile()){
-            memberDetails.setDepartment(AppConstants.MOBILE_TEAM);
-        }
-        membersList.addAll(membersResponseDTO.getMobile());
 
         return membersList;
     }

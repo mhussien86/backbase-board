@@ -1,6 +1,6 @@
 package com.backbase.boardmembers.ui.memberslist;
 
-import com.backbase.boardmembers.models.MembersResponseDTO;
+import com.backbase.boardmembers.models.MemberDetails;
 
 import java.util.List;
 
@@ -16,6 +16,6 @@ public interface MembersListView {
 
     void showError(String errorMessage);
 
-    void setBoardMembersList(List<MembersResponseDTO.MemberDetails> membersList);
+    void setBoardMembersList(List<MemberDetails> membersList);
 
 }

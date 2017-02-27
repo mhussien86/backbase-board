@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.backbase.boardmembers.R;
-import com.backbase.boardmembers.models.MembersResponseDTO;
+import com.backbase.boardmembers.models.MemberDetails;
 import com.backbase.boardmembers.ui.AppConstants;
 import com.backbase.boardmembers.ui.memberdetails.MemberDetailsFragment;
 
@@ -92,14 +92,14 @@ public class MembersListFragment extends Fragment implements MembersListView{
     }
 
     @Override
-    public void setBoardMembersList(List<MembersResponseDTO.MemberDetails> membersList) {
+    public void setBoardMembersList(List<MemberDetails> membersList) {
 
         if(errorLayout!=null && errorLayout.getVisibility()==View.VISIBLE){
             errorLayout.setVisibility(View.GONE);
         }
         membersAdapter = new MembersAdapter(getContext(),membersList, new MembersAdapter.OnMemberClickListener() {
             @Override
-            public void onMemberClick(MembersResponseDTO.MemberDetails memberDetails) {
+            public void onMemberClick(MemberDetails memberDetails) {
                 MemberDetailsFragment bottomSheetDialogFragment = new MemberDetailsFragment();
                 Bundle args = new Bundle();
                 args.putParcelable(AppConstants.MEMBER_DETAILS, Parcels.wrap(memberDetails));

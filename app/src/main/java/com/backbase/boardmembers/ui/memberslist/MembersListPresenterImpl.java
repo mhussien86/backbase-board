@@ -2,7 +2,7 @@ package com.backbase.boardmembers.ui.memberslist;
 
 import com.backbase.boardmembers.interactors.BoardMembersInteractor;
 import com.backbase.boardmembers.interactors.BoardMembersInteractorImpl;
-import com.backbase.boardmembers.models.MembersResponseDTO;
+import com.backbase.boardmembers.models.MemberDetails;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ public class MembersListPresenterImpl implements MembersListPresenter, BoardMemb
     }
 
     @Override
-    public void onSuccessFetchingAllBoardMembers(List<MembersResponseDTO.MemberDetails> memberDetailsList) {
+    public void onSuccessFetchingAllBoardMembers(List<MemberDetails> memberDetailsList) {
 
         membersListView.hideLoading();
         membersListView.setBoardMembersList(memberDetailsList);

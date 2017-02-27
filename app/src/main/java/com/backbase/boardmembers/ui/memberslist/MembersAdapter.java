@@ -6,13 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.backbase.boardmembers.R;
 import com.backbase.boardmembers.data.APIConstants;
-import com.backbase.boardmembers.models.MembersResponseDTO;
+import com.backbase.boardmembers.models.MemberDetails;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -24,15 +26,15 @@ public class MembersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private final int VIEW_TYPE_HEADER = 0;
     private final int VIEW_TYPE_ITEM = 1;
-    List<MembersResponseDTO.MemberDetails> membersList;
+    List<MemberDetails> membersList;
     OnMemberClickListener onMemberClickListener;
 
     Context context ;
     public interface OnMemberClickListener {
-        void onMemberClick(MembersResponseDTO.MemberDetails memberDetails);
+        void onMemberClick(MemberDetails memberDetails);
     }
 
-    public MembersAdapter(Context context , List<MembersResponseDTO.MemberDetails> membersList, OnMemberClickListener onMemberClickListener) {
+    public MembersAdapter(Context context , List<MemberDetails> membersList, OnMemberClickListener onMemberClickListener) {
         this.membersList = membersList;
         this.onMemberClickListener = onMemberClickListener;
         this.context = context ;
@@ -55,7 +57,7 @@ public class MembersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        final MembersResponseDTO.MemberDetails memberDetails = membersList.get(position);
+        final MemberDetails memberDetails = membersList.get(position);
         if (holder instanceof HeaderViewHolder) {
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
             headerViewHolder.teamTitle.setText(memberDetails.getHeader());
@@ -97,7 +99,7 @@ public class MembersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final MembersResponseDTO.MemberDetails memberDetails, final MembersAdapter.OnMemberClickListener onMemberClickListener) {
+        public void bind(final MemberDetails memberDetails, final MembersAdapter.OnMemberClickListener onMemberClickListener) {
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -8,9 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.backbase.boardmembers.R;
 import com.backbase.boardmembers.data.APIConstants;
-import com.backbase.boardmembers.models.MembersResponseDTO;
+import com.backbase.boardmembers.models.MemberDetails;
 import com.backbase.boardmembers.ui.AppConstants;
 import com.backbase.boardmembers.utils.MailUtil;
 import com.backbase.boardmembers.utils.MemberPhotoUtil;
@@ -39,7 +40,7 @@ public class MemberDetailsFragment extends BottomSheetDialogFragment {
 
         Bundle mArgs = getArguments();
 
-        final MembersResponseDTO.MemberDetails memberDetails = Parcels.unwrap(mArgs.getParcelable(AppConstants.MEMBER_DETAILS));
+        final MemberDetails memberDetails = Parcels.unwrap(mArgs.getParcelable(AppConstants.MEMBER_DETAILS));
 
         final ImageView memberPhoto = (ImageView) contentView.findViewById(R.id.itemImg);
         Glide.with(getActivity()).load(APIConstants.IMAGE_SERVICE_PATH + memberDetails.getPhoto()).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.avatar).centerCrop().into(memberPhoto);
